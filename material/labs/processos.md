@@ -19,19 +19,19 @@ Você deverá colocar sua entrega na pasta `lab/lab-processos` em seu repositór
 
 O programa será avaliado de forma manual usando uma rubrica que descreve as funcionalidades implementadas. Quanto maior o número de funcionalidades maior será a nota.
 
-### Conceito **I (zero)**
+### **Conceito I (zero)**
 
 - O programa não compila
 - O programa não implementa algum dos requisitos da rubrica  **D**.
 
-### Conceito **D (4,0)**
+### **Conceito D (4,0)**
 
 - O programa compila com warnings.
 - O programa roda na linha de comando como abaixo, salvando o resultado como `exemplo_com_pagina.html`, ou seja, ignorando `http://` e `https://`, substituindo todas barras e pontos (exceto o último) por `_`.
 
 `$> web_downloader http://exemplo.com/pagina.html`
 
-### Conceito **C (6,0)**
+### **Conceito C (6,0)**
 
 - O programa compila sem warnings.
 - O programa recebe uma flag `-f` seguida pelo nome de um arquivo. Seu programa deverá ler o arquivo e fazer o download de cada url dentro do arquivo. Você pode supor que cada linha do arquivo contém exatamente uma URL. As regras para o nome do arquivo correspondente são as mesmas do item anterior.
@@ -46,7 +46,7 @@ O programa será avaliado de forma manual usando uma rubrica que descreve as fun
 - O processo principal só termina depois que todos os arquivos foram baixados.
 - O programa abre até `N` processos em paralelo. Se houver mais que `N` urls então os processos deverão sempre existir no máximo `N+1` processos (`N` para fazer download mais o original). Esse valor é passado pela linha de comando via flag `-N`. Se nada for passado assuma `N=4`.
 
-### Conceito **A (10,0)**
+### **Conceito A (10,0)**
 
 - As mensagens de finalização de baixar uma página são mostradas sem estar embaralhadas mesmo se vários processos terminarem ao mesmo tempo.
 - Ao apertar Ctrl+C o programa pergunta se o usuário deseja realmente sair. Se sim, todas as transferências são paradas e os arquivos que não foram baixados até o fim são deletados.
@@ -68,7 +68,7 @@ $ sudo apt install libcurl4-openssl-dev
 ```
 </div>
 
-- Exemplo muuuuuito simples para comerçar:
+- Exemplo muuuuuito simples para começar:
 ```c
 /*
 Compile:
@@ -99,6 +99,7 @@ int main(int argc, char **argv)
         fp = fopen(argv[2], "wb");
         
         // primeiro parâmetro é URL a ser baixada
+        curl_easy_setopt(curl, CURLOPT_USERAGENT, "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0");
         curl_easy_setopt(curl, CURLOPT_URL, argv[1]);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
         curl_easy_setopt(curl, CURLOPT_FAILONERROR, 1L);
